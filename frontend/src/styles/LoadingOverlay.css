@@ -1,0 +1,30 @@
+/* src/components/LoadingOverlay.css */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.8); /* Dark semi-transparent background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  gap: 1rem;
+}
+
+/* This styles the loader itself - you may need to adjust colors */
+.loading-overlay .loader-hidden {
+  display: none;
+}
+
+.loading-overlay .loader-active {
+  display: block;
+}
+
+.loading-overlay .line-scale > div {
+  background-color: #38bdf8; /* A light blue color for the loader bars */
+}

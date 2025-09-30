@@ -1,0 +1,30 @@
+/* src/App.css */
+
+/* Set a base dark background for the entire page */
+body {
+  background-color: rgb(8, 14, 18);
+  color: #e2e8f0; /* Set a light default text color */
+}
+
+/* This is the main container for your entire application.
+  - display: flex arranges its children (Header and main)
+  - flex-direction: column stacks them vertically.
+  - height: 100vh makes it fill the entire viewport height.
+*/
+.main-component-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* Prevents the whole page from scrolling */
+}
+
+/*
+  This targets the <main> content area.
+  - flex: 1 tells it to grow and fill all available vertical space.
+  - overflow-y: auto adds a scrollbar ONLY to this area if the content is too tall.
+*/
+.app-main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+}
