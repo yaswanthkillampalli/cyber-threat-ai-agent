@@ -60,7 +60,7 @@ The **Cyber Threat AI Agent** is an advanced platform leveraging machine learnin
      PORT=8000
      USE_MOCK_MODEL=true
      SUPABASE_URL=https://uvajtztgfejjhopfinue.supabase.co
-     SUPABASE_ANON_KEY=your_supabase_anon_key
+     SUPABASE_ANON_KEY=sb_publishable_H67GZ6Fn1qPQhuwq-oKYsA_QFcQHVHL
      MODEL_API_URL_SINGLE=http://127.0.0.1:5000/predict/single
      MODEL_API_URL_BATCH=http://127.0.0.1:5000/predict/batch
      ```
