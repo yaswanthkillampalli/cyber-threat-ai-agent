@@ -29,7 +29,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // --- NEW: THREAT AGGREGATION CONFIGURATION ---
-const THRESHOLD_COUNT = 50;       // N: Detections required to create a rule
+const THRESHOLD_COUNT = 1;       // N: Detections required to create a rule
 const THRESHOLD_WINDOW_MS = 10000; // T: Time window (10 seconds) in milliseconds
 const RULE_EXPIRATION_MINUTES = 60; // Rule blocks for 1 hour
 const DIAGNOSTIC_FORCE_ATTACK = false; // Set to true for debugging prediction/model issues
@@ -220,8 +220,6 @@ app.get('/reports/custom', async (req, res) => {
 
 
 // Endpoint 3: Analyze a new CSV file
-// Endpoint 3: Analyze a new CSV file
-// Endpoint 3: Analyze a new CSV file
 app.post('/analyze/csv', upload.single('csvfile'), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'No CSV file provided.' });
@@ -274,7 +272,6 @@ app.post('/analyze/csv', upload.single('csvfile'), async (req, res) => {
 
                     // ⭐ DEFENSE RULE GENERATION
                     if (prediction !== 'benign' && prediction !== 'Error') {
-                        // Use the new aggregation function (non-blocking)
                         manageDefenseRules(supabase, row, prediction, jobId);
                     }
 

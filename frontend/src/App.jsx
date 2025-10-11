@@ -14,6 +14,7 @@ import ReanalyzeDashboard from "./components/ReanalyzeDashboard";
 
 // const API_BASE_URL = 'http://10.140.251.181:8000';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+console.log(API_BASE_URL);
 
 // Define which tabs rely on the main analysisData fetch (tabs 0, 1, 2, 3)
 const DATA_DEPENDENT_TABS = ["0", "1", "2", "3"];
