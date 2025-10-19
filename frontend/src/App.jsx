@@ -8,6 +8,7 @@ import PacketAnalysis from "./components/PacketAnalysis";
 import CSVAnalysis from "./components/CSVAnalysis";
 import ApiAnalysis from "./components/ApiAnalysis";
 import Settings from "./components/Settings";
+import DefenseRules from "./components/DefenseRules";
 import { BounceLoader } from "react-spinners";
 import './App.css';
 import ReanalyzeDashboard from "./components/ReanalyzeDashboard";
@@ -93,7 +94,8 @@ function App() {
       "4": <CSVAnalysis />, 
       "5": <ApiAnalysis />,
       "6": <ReanalyzeDashboard />,
-      "7": <Settings /> 
+      "7": <Settings />,
+      "8": <DefenseRules />
     };
     
     // 2. Render the selected component

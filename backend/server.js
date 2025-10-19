@@ -29,7 +29,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // --- NEW: THREAT AGGREGATION CONFIGURATION ---
-const THRESHOLD_COUNT = 1;       // N: Detections required to create a rule
+const THRESHOLD_COUNT = 5;       // N: Detections required to create a rule
 const THRESHOLD_WINDOW_MS = 10000; // T: Time window (10 seconds) in milliseconds
 const RULE_EXPIRATION_MINUTES = 60; // Rule blocks for 1 hour
 const DIAGNOSTIC_FORCE_ATTACK = false; // Set to true for debugging prediction/model issues
@@ -589,6 +589,48 @@ app.post('/reanalyze/rules', async (req, res) => {
     } catch (error) {
         console.error(`Failed to process re-analysis for ID ${analysis_id}:`, error.message);
         res.status(500).json({ error: `Failed to re-analyze data: ${error.message}` });
+    }
+});
+
+/**
+ * @route GET /api/rules/:id
+ * @description Retrieves a defense rule by its unique UUID ID.
+ * @param {string} id - The unique UUID ID of the defense rule.
+ */
+app.get('/api/rules/:id', async (req, res) => {
+    const { id } = req.params;
+
+    // Basic validation for UUID format (optional but recommended)
+    // A simple regex check or library function can be used here.
+    // For now, we'll rely on the Supabase query to handle an invalid ID gracefully.
+
+    try {
+        const { data, error } = await supabase
+            .from('defense_rules')
+            .select('*') // Selects all columns of the rule
+            .eq('analysis_id', id);
+
+        if (error) {
+            console.error('Supabase Query Error:', error);
+            // Check for a specific error indicating the rule was not found
+            if (error.code === 'PGRST116') { // Supabase/PostgREST code for "No rows found" when .single() is used
+                return res.status(404).json({ message: `Rule with ID '${id}' not found.` });
+            }
+            // Generic server error
+            return res.status(500).json({ error: 'Failed to retrieve rule from database.' });
+        }
+
+        if (!data) {
+             // This case might be covered by the error handling above, but kept for robustness
+             return res.status(404).json({ message: `Rule with ID '${id}' not found.` });
+        }
+
+        // Successfully found and returned the rule data
+        res.status(200).json(data);
+
+    } catch (err) {
+        console.error('Server Error:', err);
+        res.status(500).json({ error: 'Internal server error.' });
     }
 });
 

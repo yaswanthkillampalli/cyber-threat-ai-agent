@@ -13,6 +13,7 @@ import BreakdownPieChart from '../charts/BreakdownPieChart';
 import SimpleRadarChart from '../charts/SimpleRadarChart';
 import ScatterPlot from '../charts/ScatterPlot';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // --- STYLES ---
 const overlayStyle = {
   position: 'fixed',
@@ -175,7 +176,7 @@ export default function ReanalyzeDashboard() {
     try {
       setStatus({ type: 'loading', message: `Retrieving and re-analyzing data for ID: ${id}...` });
       
-      const res = await fetch('http://localhost:8000/reanalyze/rules', {
+      const res = await fetch(API_BASE_URL + '/reanalyze/rules', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
