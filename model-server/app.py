@@ -20,8 +20,8 @@ CORS(app)
 # ==============================================================================
 # Define paths to the pre-trained model and the label encoder
 # Use environment variables or default to the relative path
-MODEL_PATH = os.environ.get('MODEL_PATH', './models/final/cyber_threat_model_xgboost.joblib')
-ENCODER_PATH = os.environ.get('ENCODER_PATH', './models/final/label_encoder.joblib')
+MODEL_PATH = os.environ.get('MODEL_PATH', './models/model.joblib')
+ENCODER_PATH = os.environ.get('ENCODER_PATH', './models/label_encoder.joblib')
 
 # Load the assets with error handling
 try:
