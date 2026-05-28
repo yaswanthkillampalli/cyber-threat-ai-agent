@@ -16,7 +16,8 @@ const { transformPredictionData, transformBlockedData } = require('./analysis-tr
 // --- CONFIGURATION ---
 const PORT = process.env.PORT || 8000;
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
 const MODEL_API_URL_SINGLE = process.env.MODEL_API_URL_SINGLE;
 const MODEL_API_URL_BATCH = process.env.MODEL_API_URL_BATCH;
 
@@ -24,7 +25,20 @@ const MODEL_API_URL_BATCH = process.env.MODEL_API_URL_BATCH;
 const app = express();
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON bodies
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+if (!SUPABASE_URL) {
+    throw new Error('Missing SUPABASE_URL in backend environment.');
+}
+
+if (!SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY in backend environment. Use the service role key for server-side Supabase access.');
+}
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+    auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+    },
+});
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 

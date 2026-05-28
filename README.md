@@ -54,23 +54,40 @@ The **Cyber Threat AI Agent** is an advanced platform leveraging machine learnin
 
 2. **Set up environment variables:**
 
-   - Create a `.env` file in the `backend` directory:
+   Create the env files before installing or running anything.
+
+   - Backend `.env` in `backend/`:
      ```ini
      MODEL_API_URL=http://127.0.0.1:5000/
      PORT=8000
      USE_MOCK_MODEL=true
      SUPABASE_URL=https://uvajtztgfejjhopfinue.supabase.co
-     SUPABASE_ANON_KEY=sb_publishable_H67GZ6Fn1qPQhuwq-oKYsA_QFcQHVHL
+     SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
      MODEL_API_URL_SINGLE=http://127.0.0.1:5000/predict/single
      MODEL_API_URL_BATCH=http://127.0.0.1:5000/predict/batch
      ```
 
-   - Create a `.env` file in the `frontend` directory:
+   - Frontend `.env` in `frontend/`:
      ```ini
      VITE_API_BASE_URL="http://localhost:8000"
      ```
 
+   - Create the files if they do not exist:
+     - Ubuntu/Linux:
+       ```bash
+       touch backend/.env frontend/.env
+       ```
+     - Windows PowerShell:
+       ```powershell
+       New-Item backend\.env -ItemType File
+       New-Item frontend\.env -ItemType File
+       ```
+
+   - Do not put the Supabase service role key in the frontend.
+
 3. **Install dependencies:**
+
+   Install after the env files are created and saved.
 
    - **Frontend:**
      ```bash
@@ -95,6 +112,8 @@ The **Cyber Threat AI Agent** is an advanced platform leveraging machine learnin
      python app.py
      # Flask server at http://localhost:5000
      ```
+
+   - Windows users can run the same commands in PowerShell or Command Prompt. If `touch` is unavailable, create the `.env` files manually in File Explorer or use the PowerShell commands above.
 4. **Links:**
 
    - **Api Link**
